@@ -5,12 +5,12 @@ import androidx.lifecycle.LiveData
 import com.agarcia.roomword.RoomDatabase.Word
 import com.agarcia.roomword.RoomDatabase.WordDao
 
-class WordRepository(private val wordDao: WordDao) {
+class WordRepository(private val wordDao:WordDao){
 
     val allWords: LiveData<List<Word>> = wordDao.getAllWords()
 
     @WorkerThread
-    suspend fun insert(word: Word) {
+    suspend fun insert(word: Word){
         wordDao.insert(word)
     }
 }

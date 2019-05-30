@@ -10,18 +10,20 @@ import com.agarcia.roomword.RoomDatabase.WordRoomDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class WordViewModel(application: Application) : AndroidViewModel(application) {
+class WordViewModel(application: Application): AndroidViewModel(application){
 
-    private val repository: WordRepository
+    private val wordRepository: WordRepository
     val allWords: LiveData<List<Word>>
 
-    init {
+    init{
         val wordsDao = WordRoomDatabase.getDatabase(application, viewModelScope).wordDao()
-        repository = WordRepository(wordsDao)
-        allWords = repository.allWords
+        wordRepository = WordRepository(wordsDao)
+
+        allWords = wordRepository.allWords
     }
 
-    fun insert(word: Word) = viewModelScope.launch(Dispatchers.IO) {
-        repository.insert(word)
+    fun insert(word:Word) = viewModelScope.launch(Dispatchers.IO){
+        wordRepository.insert(word)
     }
+
 }
